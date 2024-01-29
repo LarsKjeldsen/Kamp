@@ -17,24 +17,22 @@
 class CButton
 {
 public:
-    CButton(const char c[]) : text(c), selected(false), _x(0), _y(0), _h(0), _w(0) { button = new TFT_eSPI_Button(); }
+    CButton(const char c[]) : text(c), selected(false), x(0), y(0), h(0), w(0) { button = new TFT_eSPI_Button(); }
     CButton() : text("") {}
 
     TFT_eSPI_Button *button;
     char const * GetText() { return text;}
     void SetSelected(bool s) {selected = s;}
-    int16_t get_x() {return _x;}
-    int16_t get_y() {return _y;}
-    int16_t get_h() {return _h;}
-    int16_t get_w() {return _w;}
+
+    int16_t x;
+    int16_t y;
+    int16_t h;
+    int16_t w;
+
 private: 
     bool selected;
     const char *text;
 
-    int16_t _x;
-    int16_t _y;
-    int16_t _h;
-    int16_t _w;
 };
 
 class Display //: FT6236
@@ -52,6 +50,6 @@ public:
     Display();
     ~Display();
     void begin(TFT_eSPI *tft);
-    void SetbuttonMark(CButton but);
+    void SetbuttonMark(int but);
     int32_t Check_buttons(int32_t *x, int32_t *y);
 };
