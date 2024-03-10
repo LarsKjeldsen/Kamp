@@ -17,18 +17,18 @@
 class CButton
 {
 public:
-    CButton(const char c[]) : text(c), selected(false), x(0), y(0), h(0), w(0) { button = new TFT_eSPI_Button(); }
+    CButton(const char c[], bool m) : text(c), selected(false), x(0), y(0), h(0), w(0), menu(m) { button = new TFT_eSPI_Button(); }
     CButton() : text("") {}
 
     TFT_eSPI_Button *button;
     char const * GetText() { return text;}
     void SetSelected(bool s) {selected = s;}
-
     int16_t x;
     int16_t y;
     int16_t h;
     int16_t w;
 
+    bool menu;
 private: 
     bool selected;
     const char *text;

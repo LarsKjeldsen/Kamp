@@ -12,18 +12,13 @@ Display::~Display()
 void Display::begin(TFT_eSPI *tft)
 {
     _tft = tft;
-//    ts.begin(40, I2C_SDA, I2C_SCL);
 
-    // FT6236 reset pin - drive high
-//    pinMode(TS_RESET, OUTPUT);
-//    digitalWrite(TS_RESET, HIGH);
-
-    buttons[0] = CButton("Spotify");
-    buttons[1] = CButton("Tape");
-    buttons[2] = CButton("AUX1");
-    buttons[3] = CButton("AUX2");
-    buttons[4] = CButton("Sound");
-    buttons[5] = CButton("Setup");
+    buttons[0] = CButton("Spotify", true);
+    buttons[1] = CButton("Tape", true);
+    buttons[2] = CButton("AUX1", true);
+    buttons[3] = CButton("AUX2", true);
+    buttons[4] = CButton("Sound", false);
+    buttons[5] = CButton("Setup", false);
 
     for (int i = 0; i < NUM_BUTTON; i++)
     {
@@ -42,16 +37,19 @@ void Display::begin(TFT_eSPI *tft)
 }
 
 
-void Display::SetbuttonMark(int but)
+void Display::SetbuttonMark(int but)    
 {
     uint8_t r = min(buttons[but].w, buttons[but].h) / 4; // Corner radius
 
-    for (int i=0; i<NUM_BUTTON; i++)
+    if (buttons[but].menu)
     {
-        if (i==but)
-            _tft->fillRoundRect(buttons[i].x - 10, buttons[i].y , 5, buttons[i].h, r, TFT_RED);
-        else
-            _tft->fillRoundRect(buttons[i].x - 10, buttons[i].y , 5, buttons[i].h, r, TFT_BLACK);
+        for (int i=0; i<NUM_BUTTON; i++)
+        {
+            if (i==but)
+                _tft->fillRoundRect(buttons[i].x - 10, buttons[i].y , 5, buttons[i].h, r, TFT_RED);
+            else
+                _tft->fillRoundRect(buttons[i].x - 10, buttons[i].y , 5, buttons[i].h, r, TFT_BLACK);
+        }
     }
 }
 
